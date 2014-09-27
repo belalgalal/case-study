@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backendtask.model.User;
+import com.backendtask.model.UserRole;
 import com.backendtask.user.dao.IUserDAO;
 
 /**
@@ -31,8 +32,18 @@ public class UserService implements IUserService {
 	 * @param  User user
 	 */
 	@Transactional(readOnly = false)
-	public void addUser(User user) {
+	public void addNewUser(User user, UserRole userRole) {
 		getUserDAO().addUser(user);
+		getUserDAO().addUserRole(userRole);
+	}
+	
+	/**
+	 * Add UserRole
+	 * 
+	 * @param UserRole userRole
+	 */
+	public void addUserRole(UserRole userRole) {
+		getUserDAO().addUserRole(userRole);
 	}
 
 	/**

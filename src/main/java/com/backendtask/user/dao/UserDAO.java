@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.backendtask.model.User;
+import com.backendtask.model.UserRole;
 
 /**
  * 
@@ -50,7 +51,16 @@ public class UserDAO implements IUserDAO {
 	public void addUser(User user) {
 		getSessionFactory().getCurrentSession().save(user);
 	}
-
+	
+	/**
+	 * Add UserRole
+	 * 
+	 * @param UserRole userRole
+	 */
+	public void addUserRole(UserRole userRole) {
+		getSessionFactory().getCurrentSession().save(userRole);
+	}
+	
 	/**
 	 * Delete User
 	 * 

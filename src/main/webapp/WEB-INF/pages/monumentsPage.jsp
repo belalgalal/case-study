@@ -29,28 +29,45 @@
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
 		<h4>Current collection is:${currentCollectionName}. Use the bellow table to manipulate through the monuments data.</h4>
 		<h4>Or <a href="<c:url value='/addMonument' />" >click here</a> to create new monument.</h4>
-		<form:form action="" method="GET">
-			<br><br>
+		
+		<form:form commandName="searchedMonument" action="searchMonuments" method="POST">
 			<table border="1" style="width:50%">
 				<tr>
 					<th>Monument Name</th>
-					<th>Description</th>
 					<th>Category Name</th>
-					<th>Edit Link</th>
-					<th>Delete Link</th>
 				</tr>
-				
-				<c:forEach var="monument" items="${monumentsList}">
-					<tr>
-						<td><a href="<c:url value='/picturesPage' />?monumentId=${monument.monumentId}&monumentName=${monument.monumentName}" >${monument.monumentName}</a></td>
-						<td>${monument.monumentDesc}</td>
-						<td>${monument.category.categoryName}</td>
-						<td><a href="<c:url value='/editMonument' />?id=${monument.monumentId}" >Edit</a></td>
-						<td><a href="<c:url value='/deleteMonument' />?id=${monument.monumentId}" >Delete</a></td>
-					</tr>
-				</c:forEach>
+				<tr>
+					<td><form:input path="monumentName" /></td>
+					<td><form:input path="category.categoryName" /></td>
+				</tr>
+				<tr>
+					<td rowspan="2"><input type="submit" value="Submit" /></td>
+				</tr>
 			</table>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form:form>
+		
+		<br><br>
+		<table border="1" style="width:50%">
+			<tr>
+				<th>Monument Name</th>
+				<th>Description</th>
+				<th>Category Name</th>
+				<th>Edit Link</th>
+				<th>Delete Link</th>
+			</tr>
+			
+			<c:forEach var="monument" items="${monumentsList}">
+				<tr>
+					<td><a href="<c:url value='/picturesPage' />?monumentId=${monument.monumentId}&monumentName=${monument.monumentName}" >${monument.monumentName}</a></td>
+					<td>${monument.monumentDesc}</td>
+					<td>${monument.category.categoryName}</td>
+					<td><a href="<c:url value='/editMonument' />?id=${monument.monumentId}" >Edit</a></td>
+					<td><a href="<c:url value='/deleteMonument' />?id=${monument.monumentId}" >Delete</a></td>
+				</tr>
+			</c:forEach>
+		</table>
+		
 		<br><br>
 		<h2><a href="<c:url value='/' />" >Home sweet Home!</a></h2>
 		<h2>

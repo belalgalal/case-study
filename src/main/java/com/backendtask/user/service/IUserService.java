@@ -3,6 +3,7 @@ package com.backendtask.user.service;
 import java.util.List;
 
 import com.backendtask.model.User;
+import com.backendtask.model.UserRole;
 
 /**
  * 
@@ -20,7 +21,14 @@ public interface IUserService {
 	 * 
 	 * @param  User user
 	 */
-	public void addUser(User user);
+	public void addNewUser(User user, UserRole userRole);
+	
+	/**
+	 * Add UserRole
+	 * 
+	 * @param UserRole userRole
+	 */
+	public void addUserRole(UserRole userRole);
 	
 	/**
 	 * Update User

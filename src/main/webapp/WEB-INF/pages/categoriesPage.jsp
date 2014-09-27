@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pictures Page</title>
+<title>Categories Page</title>
 </head>
 <body>
-	<h1>Pictures Page</h1>
+	<h1>Categories Page</h1>
 	
 	<!-- For login user -->
 	<c:url value="/logout" var="logoutUrl" />
@@ -27,26 +27,21 @@
 		<c:redirect url="<c:url value='/' />" />
 	</c:if>
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<h4>Current monument is:${currentMonumentName}. Use the bellow table to manipulate through the pictures data.</h4>
-		<h4>Or <a href="<c:url value='/addPicture' />" >click here</a> to create new picture.</h4>
+		<h4>Use the bellow table to manipulate through the categories data.</h4>
+		<h4>Or <a href="<c:url value='/addCategory' />" >click here</a> to create new category.</h4>
 		<br><br>
 		<table border="1" style="width:50%">
 			<tr>
-				<th>Picture Name</th>
-				<th>Description</th>
-				<th>Picture Date</th>
+				<th>Category Name</th>
 				<th>Edit Link</th>
 				<th>Delete Link</th>
 			</tr>
 			
-			<c:forEach var="picture" items="${picturesList}">
+			<c:forEach var="category" items="${categoriesList}">
 				<tr>
-					<td>${picture.pictureName}</td>
-					<td>${picture.pictureDesc}</td>
-					<td>${picture.pictureDate}</td>
-					<td><img src="getPictureById/<c:out value="${picture.pictureId}"/>" width="100" height="100"/></td>
-					<td><a href="<c:url value='/editPicture' />?id=${picture.pictureId}" >Edit</a></td>
-					<td><a href="<c:url value='/deletePicture' />?id=${picture.pictureId}" >Delete</a></td>
+					<td>${category.categoryName}</td>
+					<td><a href="<c:url value='/editCategory' />?id=${category.categoryId}" >Edit</a></td>
+					<td><a href="<c:url value='/deleteCategory' />?id=${category.categoryId}" >Delete</a></td>
 				</tr>
 			</c:forEach>
 		</table>

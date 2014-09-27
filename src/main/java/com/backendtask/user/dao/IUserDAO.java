@@ -3,6 +3,7 @@ package com.backendtask.user.dao;
 import java.util.List;
 
 import com.backendtask.model.User;
+import com.backendtask.model.UserRole;
 
 /**
  * 
@@ -21,6 +22,13 @@ public interface IUserDAO {
 	 * @param  User user
 	 */
 	public void addUser(User user);
+	
+	/**
+	 * Add User Role
+	 * 
+	 * @param UserRole userRole
+	 */
+	public void addUserRole(UserRole userRole);
 	
 	/**
 	 * Update User

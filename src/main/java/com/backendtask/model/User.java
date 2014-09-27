@@ -1,6 +1,7 @@
 package com.backendtask.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -42,7 +43,7 @@ public class User implements Serializable {
 	private String lastName;
 
 	@NotEmpty
-	@Column(name="PASSWORD", nullable = false, length=60)
+	@Column(name="PASSWORD", nullable = false, length=255)
 	private String password;
 
 	@Column(name="USER_NAME", unique=true, nullable = false, length=45)
@@ -69,6 +70,7 @@ public class User implements Serializable {
 	private String confirmPassword;
 	
 	public User() {
+		userRoles = new ArrayList<UserRole>();
 	}
 
 	public int getUserId() {

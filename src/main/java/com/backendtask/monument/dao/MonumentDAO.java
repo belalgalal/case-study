@@ -93,5 +93,12 @@ public class MonumentDAO implements IMonumentDAO {
 				.setParameter(0, collectionId).setParameter(1, userName).list();
 		return list;
 	}
-
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Monument> findMonuments(String monumentName, String categoryName, String userName) {
+		List list = getSessionFactory().getCurrentSession()
+				.createQuery("from Monument m JOIN FETCH m.category where m.monumentName like ? and m.category.categoryName like ? and m.user.userName = ?")
+				.setParameter(0, "%"+monumentName+"%").setParameter(1, "%"+categoryName+"%").setParameter(2, userName).list();
+		return list;
+	}
 }

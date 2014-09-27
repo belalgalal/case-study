@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.backendtask.helper.HashCodeUtil;
 import com.backendtask.model.User;
+import com.backendtask.model.UserRole;
 import com.backendtask.user.service.IUserService;
 import com.backendtask.web.validator.RegitrationValidator;
 
@@ -70,7 +71,12 @@ public class RegistrationController {
         
 		user.setPassword(HashCodeUtil.getHashPassword(user.getPassword()));
 		user.setConfirmPassword(HashCodeUtil.getHashPassword(user.getConfirmPassword()));
-		userService.addUser(user);
+		user.setEnabled(true);
+		UserRole userRole = new UserRole();
+		userRole.setRole("ROLE_USER");
+		userRole.setUser(user);
+		user.addUserRole(userRole);
+		userService.addNewUser(user, userRole);
 		model.setViewName("success");
 		return model;
 	}

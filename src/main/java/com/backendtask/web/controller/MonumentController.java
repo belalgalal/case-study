@@ -47,6 +47,7 @@ public class MonumentController {
 			monumentsList  = monumentService.getMonuments(collectionId, userDetail.getUsername());
 			model.addObject("monumentsList", monumentsList);
 			model.addObject("currentCollectionName", currentCollectionName);
+			model.addObject("searchedMonument", new Monument());
 			model.setViewName("monumentsPage");
 		}
 		return model;
@@ -118,5 +119,28 @@ public class MonumentController {
 		monumentService.addMonument(monument, currentCollectionId, userDetail.getUsername());
 		
 		return "successOperation";
+	}
+	
+	@RequestMapping(value = "/searchMonuments", method = RequestMethod.POST)
+	public ModelAndView searchMonuments(Monument searchedMonument) {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("monumentsPage");
+		model.addObject("searchedMonument", searchedMonument);
+		model.addObject("currentCollectionName", currentCollectionName);
+		if(searchedMonument.getMonumentName().equals("") 
+				&& searchedMonument.getCategory().getCategoryName().equals("")) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			UserDetails userDetail = (UserDetails) auth.getPrincipal();
+			monumentsList  = monumentService.getMonuments(currentCollectionId, userDetail.getUsername());
+			model.addObject("monumentsList", monumentsList);
+			model.addObject("searchedMonument", new Monument());
+			model.setViewName("monumentsPage");
+			return model;
+		}
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetail = (UserDetails) auth.getPrincipal();
+		monumentsList  = monumentService.findMonuments(searchedMonument.getMonumentName(), searchedMonument.getCategory().getCategoryName(), userDetail.getUsername());
+		model.addObject("monumentsList", monumentsList);
+		return model;
 	}
 }

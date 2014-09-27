@@ -36,7 +36,9 @@
 </style>
 </head>
 <body onload='document.loginForm.username.focus();'>
-
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<c:redirect url="/"/>
+	</c:if>
 	<h1>Backend Task</h1>
 
 	<div id="login-box">

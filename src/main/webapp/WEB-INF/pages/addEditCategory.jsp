@@ -13,31 +13,19 @@
 <body>
 	<h1>${title}</h1>
 	
-	<!-- For login user -->
-	<c:url value="/logout" var="logoutUrl" />
-	<form action="${logoutUrl}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-	<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
-	
 	<c:if test="${pageContext.request.userPrincipal.name == null}">
 		<c:redirect url="<c:url value='/' />" />
 	</c:if>
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
 		<h4>${message}</h4>
 		
-		<form:form action="${action}" method='POST' commandName="collection">
+		<form:form action="${action}" method='POST' commandName="category">
 			<table border="1" style="width:50%">
 				<tr>
-					<td>Collection Name:<FONT color="red"><form:errors path="collectionName" /></FONT></td>
+					<td>Category Name:<FONT color="red"><form:errors path="categoryName" /></FONT></td>
 				</tr>
 				<tr>
-					<td><form:input  path="collectionName" /></td>
+					<td><form:input  path="categoryName" /></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="Submit" />
@@ -48,7 +36,7 @@
 					</td>
 				</tr>
 			</table>
-			<input type="hidden" name="collectionId" value="${collection.collectionId}" />
+			<input type="hidden" name="categoryId" value="${category.categoryId}" />
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form:form>
 		<br><br>

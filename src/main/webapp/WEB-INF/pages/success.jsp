@@ -7,24 +7,11 @@
 <title>Success Operation</title>
 </head>
 	<body>
-		
-		<!-- For login user -->
-		<c:url value="/logout" var="logoutUrl" />
-		<form action="${logoutUrl}" method="post" id="logoutForm">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-		</form>
-		<script>
-			function formSubmit() {
-				document.getElementById("logoutForm").submit();
-			}
-		</script>
-		
 		<c:if test="${pageContext.request.userPrincipal.name != null}">
 			<c:redirect url="/"/>
 		</c:if>
 		<c:if test="${pageContext.request.userPrincipal.name == null}">
-			<h1>Success Operation</h1>
+			<h1>Success Registration</h1>
 			<h4>Wohoooo! Use your username and password to login from bellow link.</h4>
 			<ul>
 				<li><a href="<c:url value='/login' />" />Click here to Login</a></li>
@@ -32,9 +19,6 @@
 			
 			<br><br>
 			<h2><a href="<c:url value='/' />" >Home sweet Home!</a></h2>
-			<h2>
-				User : ${pageContext.request.userPrincipal.name} | <a href="javascript:formSubmit()"> Logout</a>
-			</h2>
 		</c:if>
 	</body>
 </html>

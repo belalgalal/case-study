@@ -1,7 +1,13 @@
 package com.backendtask.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Date;
 
 
@@ -19,6 +25,7 @@ public class Picture implements Serializable {
 	@Column(name="PICTURE_ID", unique=true, nullable=false)
 	private int pictureId;
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name="PICTURE_DATE")
 	private Date pictureDate;
@@ -26,12 +33,16 @@ public class Picture implements Serializable {
 	@Column(name="PICTURE_DESC", length=255)
 	private String pictureDesc;
 
+	@NotEmpty
 	@Column(name="PICTURE_NAME", nullable=false, length=45)
 	private String pictureName;
 
-	@Column(name="PICTURE_PATH", length=255)
-	private String picturePath;
+	@Column(name="PICTURE_CONTENT", nullable=false)
+	private byte[] pictureContent;
 
+	@Column(name="PICTURE_FILE_NAME", nullable=false, length=45)
+	private String pictureFileName;
+	
 	//bi-directional many-to-one association to User
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID", nullable = false)
@@ -42,6 +53,9 @@ public class Picture implements Serializable {
 	@JoinColumn(name="MONUMENT_ID", nullable =false)
 	private Monument monument;
 
+	@Transient
+	private MultipartFile fileData;
+	
 	public Picture() {
 	}
 
@@ -77,12 +91,12 @@ public class Picture implements Serializable {
 		this.pictureName = pictureName;
 	}
 
-	public String getPicturePath() {
-		return this.picturePath;
+	public byte[] getPictureContent() {
+		return this.pictureContent;
 	}
 
-	public void setPicturePath(String picturePath) {
-		this.picturePath = picturePath;
+	public void setPictureContent(byte[] pictureContent) {
+		this.pictureContent = pictureContent;
 	}
 
 	public User getUser() {
@@ -100,5 +114,21 @@ public class Picture implements Serializable {
 	public void setMonument(Monument monument) {
 		this.monument = monument;
 	}
-
+	
+	public MultipartFile getFileData() {
+		return fileData;
+	}
+	
+	public void setFileData(MultipartFile fileData) {
+		this.fileData = fileData;
+	}
+	
+	public void setPictureFileName(String pictureFileName) {
+		this.pictureFileName = pictureFileName;
+	}
+	
+	public String getPictureFileName() {
+		return pictureFileName;
+	}
+	
 }

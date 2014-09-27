@@ -108,4 +108,7 @@ public class MonumentService implements IMonumentService {
 		this.monumentDAO = monumentDAO;
 	}
 
+	public List<Monument> findMonuments(String monumentName, String categoryName, String userName) {
+		return getMonumentDAO().findMonuments(monumentName, categoryName, userName);
+	}
 }

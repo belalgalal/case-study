@@ -48,4 +48,6 @@ public interface IMonumentDAO {
 	 * 
 	 */
 	public List<Monument> getMonuments(int collectionId, String userName);
+
+	public List<Monument> findMonuments(String monumentName, String categoryName, String userName);
 }
